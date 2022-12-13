@@ -1,0 +1,88 @@
+._aside {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 1.5rem;
+}
+._aside ._controls {
+  padding: 8px 16px;
+  font-weight: bold !important;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+._hide_border {
+  border: none !important;
+}
+
+._aside ._controls ._icon {
+  color: #777 !important;
+}
+._aside ul {
+  display: none;
+  list-style: none;
+  padding: 0;
+}
+._aside ._active_list {
+  display: block !important;
+}
+
+._aside ul li a {
+  font-weight: 500;
+  padding: 8px 16px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+._aside ul li ._active_link * {
+  color: #e76f51;
+}
+._aside ul li:last-child a {
+  border: none;
+}
+.sectionTitle {
+  margin-bottom: 1rem;
+}
+.sectionTitle p {
+  font-size: 28px;
+  font-weight: bold !important;
+}
+.sectionTitle small {
+  font-weight: 500;
+}
+
+@media (min-width: 768px) {
+  .sectionTitle {
+    display: none !important;
+  }
+}
+@media (min-width: 900px) {
+  ._layout {
+    display: flex;
+    gap: 16px;
+  }
+  ._main {
+    width: 100%;
+  }
+  ._aside {
+    width: 240px;
+    border: none;
+  }
+  ._aside ._controls {
+    border: none;
+  }
+  ._aside ._controls ._icon {
+    display: none;
+  }
+  ._aside ul {
+    display: block;
+  }
+  ._aside ul li a {
+    border: none;
+  }
+  ._aside ul li a span {
+    font-size: 15px;
+  }
+}

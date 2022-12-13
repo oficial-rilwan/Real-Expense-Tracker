@@ -19,7 +19,7 @@ const titles = {
   },
   settings: {
     title: "Settings",
-    subtitle: "Manage account settings here",
+    subtitle: "Update your username and manage your account",
   },
 };
 

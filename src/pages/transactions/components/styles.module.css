@@ -56,17 +56,17 @@
   padding: 8px 16px;
   border-radius: 5px;
 }
-._dialog_body ._btn_gp button:first-child {
+._dialog_body ._btn_gp button:last-child {
   border: 1px solid #ccc;
 }
-._dialog_body ._btn_gp button:first-child:focus {
+._dialog_body ._btn_gp button:last-child:focus {
   outline: 3px solid #9e9d9d79;
 }
-._dialog_body ._btn_gp button:last-child {
+._dialog_body ._btn_gp button:first-child {
   background-color: #2a9d8f;
   color: #fff;
 }
-._dialog_body ._btn_gp button:last-child:focus {
+._dialog_body ._btn_gp button:first-child:focus {
   outline: 3px solid #3acdbb;
 }
 

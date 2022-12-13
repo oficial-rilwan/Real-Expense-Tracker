@@ -30,7 +30,7 @@ interface CreateTransactionDto {
 const AddTransaction = ({ open, close }: AddTransactionProps) => {
   const [values, setValues] = useState<CreateTransactionDto>({
     date: new Date(),
-    category: "Income",
+    category: "",
     type: "",
     amount: "",
     note: "",
@@ -86,7 +86,9 @@ const AddTransaction = ({ open, close }: AddTransactionProps) => {
             variant="outlined"
             name="category"
             onChange={handleChange}
+            displayEmpty
           >
+            <MenuItem value="">--select category --</MenuItem>
             <MenuItem value="Income">Income</MenuItem>
             <MenuItem value="Expenses">Expenses</MenuItem>
           </Select>
@@ -103,7 +105,9 @@ const AddTransaction = ({ open, close }: AddTransactionProps) => {
             variant="outlined"
             name="type"
             onChange={handleChange}
+            displayEmpty
           >
+            <MenuItem value="">-- select type --</MenuItem>
             {types?.map((item: string, index) => (
               <MenuItem key={index} value={item}>
                 {item}
@@ -143,8 +147,8 @@ const AddTransaction = ({ open, close }: AddTransactionProps) => {
           />
         </div>
         <div className={styles._btn_gp}>
-          <button onClick={close}>Cancel</button>
           <button type="submit">Save</button>
+          <button onClick={close}>Cancel</button>
         </div>
       </div>
     </Dialog>
