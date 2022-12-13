@@ -2,6 +2,12 @@
   width: inherit;
   border-radius: 7px !important;
 }
+@media (max-width: 568px) {
+  ._dialog_paper {
+    width: 100vw !important;
+    margin: 32px 8px !important;
+  }
+}
 ._dialog_header {
   height: 4rem;
   display: flex;

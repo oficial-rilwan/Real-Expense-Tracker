@@ -23,6 +23,7 @@
 ._categories_table .header {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  align-items: center;
   padding: 12px;
   border-radius: 5px;
   margin-bottom: 6px;
@@ -34,6 +35,7 @@
 ._categories_table .content {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  align-items: center;
   padding: 8px 12px;
   border-radius: 5px;
   margin-bottom: 6px;

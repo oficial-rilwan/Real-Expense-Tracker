@@ -41,6 +41,7 @@
 ._categories_table .header {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
+  align-items: center;
   gap: 12px;
   min-width: 578px;
   padding: 12px;
@@ -58,6 +59,7 @@
 ._categories_table .content {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
+  align-items: center;
   gap: 12px;
   padding: 8px 12px;
   margin-bottom: 6px;

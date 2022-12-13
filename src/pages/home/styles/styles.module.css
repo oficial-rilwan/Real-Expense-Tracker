@@ -91,6 +91,8 @@
 ._data ._header {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+
   padding: 12px;
   gap: 12px;
   border-radius: 5px;
@@ -107,6 +109,8 @@
 ._data ._content {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+
+  align-items: center;
   padding: 8px 12px;
   gap: 12px;
   margin-bottom: 6px;
