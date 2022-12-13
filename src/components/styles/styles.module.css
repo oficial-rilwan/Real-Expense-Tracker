@@ -1,0 +1,137 @@
+.sidebar {
+  position: fixed;
+  z-index: 10;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4rem;
+  background: #fff;
+  border-top: 1px solid #ccc;
+}
+.sidebar_links {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  height: 100%;
+}
+.sidebar_icon {
+  color: #333;
+}
+.sidebar_links ul {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  list-style: none;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px;
+}
+.sidebar_links ul li:nth-child(4) {
+  display: none;
+}
+.sidebar_links ul .active * {
+  color: #e76f51;
+}
+.sidebar_links ul li a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.sidebar_links ul li a span {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.header {
+  width: 100%;
+}
+
+.nav_bar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+}
+.header_titles {
+  display: none;
+}
+.header_titles p {
+  font-size: 20px;
+  font-weight: bold !important;
+}
+.header_titles small {
+  font-weight: 500;
+}
+.user_info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.user_info > span {
+  font-weight: bold !important;
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .nav_bar {
+    align-items: flex-start;
+  }
+  .header_titles {
+    display: block;
+  }
+  .header_titles p {
+    font-size: 28px;
+    font-weight: bold !important;
+  }
+  .user_info > span {
+    font-weight: bold !important;
+    display: flex;
+  }
+  .sidebar_links ul li a span {
+    font-size: 16px;
+  }
+  .sidebar_links ul li:nth-child(4) {
+    display: block;
+  }
+}
+
+@media (min-width: 920px) {
+  .sidebar {
+    display: block;
+    position: relative;
+    border-right: 1px solid #ccc;
+    width: 300px;
+    min-height: 100vh;
+  }
+  .sidebar_links {
+    display: flex;
+    flex-direction: column;
+    row-gap: 32px;
+    margin-top: 12px;
+  }
+
+  .sidebar_links ul {
+    list-style: none;
+    padding: 0;
+    display: block;
+  }
+  .sidebar_links ul li {
+    margin-bottom: 8px;
+    border-left: 5px solid #fff;
+  }
+  .sidebar_links ul .active {
+    border-left: 5px solid #e76f51;
+    background: #2a9d9036;
+  }
+  .sidebar_links ul li a {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    padding: 12px 16px;
+    font-weight: 500;
+  }
+}

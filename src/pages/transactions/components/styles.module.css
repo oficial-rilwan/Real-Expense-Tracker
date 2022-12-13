@@ -1,0 +1,94 @@
+._dialog_paper {
+  width: inherit;
+  border-radius: 7px !important;
+}
+._dialog_header {
+  height: 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 8px 0 16px;
+  border-bottom: 1px solid #ccc;
+}
+._dialog_header div:first-child {
+  font-weight: bold;
+  font-size: 20px;
+}
+._dialog_body {
+  padding: 16px;
+  max-height: 450px;
+  overflow-y: auto;
+}
+
+._dialog_body label {
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+._dialog_body label span {
+  color: #ff0000;
+}
+._dialog_body ._input {
+  margin-bottom: 1rem !important;
+}
+._dialog_body ._input input {
+  font-size: 16px;
+}
+._dialog_body ._input textarea {
+  font-size: 16px;
+}
+._dialog_body ._input div {
+  font-size: 16px !important;
+}
+
+._dialog_body ._btn_gp {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+}
+._dialog_body ._btn_gp button {
+  font-weight: bold;
+  padding: 8px 16px;
+  border-radius: 5px;
+}
+._dialog_body ._btn_gp button:first-child {
+  border: 1px solid #ccc;
+}
+._dialog_body ._btn_gp button:first-child:focus {
+  outline: 3px solid #9e9d9d79;
+}
+._dialog_body ._btn_gp button:last-child {
+  background-color: #2a9d8f;
+  color: #fff;
+}
+._dialog_body ._btn_gp button:last-child:focus {
+  outline: 3px solid #3acdbb;
+}
+
+@media (min-width: 768px) {
+  ._dialog_paper {
+    width: 500px;
+  }
+  ._dialog_header div:first-child {
+    font-size: 24px;
+  }
+  ._input_field {
+    display: grid;
+    gap: 16px;
+    align-items: center;
+    grid-template-columns: repeat(12, 1fr);
+    margin-bottom: 16px;
+  }
+
+  ._input_field label {
+    grid-column: span 3;
+    text-align: right;
+    margin-bottom: 0 !important;
+  }
+  ._input_field._text_area {
+    align-items: flex-start !important;
+  }
+  ._input_field ._input {
+    grid-column: span 9;
+    margin-bottom: 0 !important;
+  }
+}

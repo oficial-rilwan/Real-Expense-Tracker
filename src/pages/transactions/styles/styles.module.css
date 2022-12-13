@@ -1,0 +1,92 @@
+.sectionTitle {
+  margin-bottom: 1rem;
+}
+.sectionTitle p {
+  font-size: 28px;
+  font-weight: bold !important;
+}
+.sectionTitle small {
+  font-weight: 500;
+}
+._add_new {
+  margin-bottom: 1rem;
+}
+._add_new button {
+  padding: 12px 16px;
+  border-radius: 5px;
+  background-color: #2a9d8f;
+  color: #fff;
+  font-weight: bold;
+}
+._add_new button:focus {
+  outline: 3px solid #3acdbb;
+}
+@media (min-width: 768px) {
+  .sectionTitle {
+    display: none;
+  }
+  ._add_new {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+._paper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+._categories_table {
+  padding: 16px;
+  overflow-x: auto;
+}
+._categories_table .header {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  min-width: 578px;
+  padding: 12px;
+  border-radius: 5px;
+  margin-bottom: 6px;
+  background: #f1f1f1;
+}
+._categories_table .header div {
+  font-weight: bold !important;
+}
+._categories_table .header div:last-child {
+  text-align: right;
+}
+
+._categories_table .content {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  padding: 8px 12px;
+  margin-bottom: 6px;
+  min-width: 578px;
+}
+._categories_table .content div {
+  font-weight: 500 !important;
+  white-space: nowrap;
+}
+._categories_table .content div:nth-child(2) {
+  padding: 4px 8px;
+  border-radius: 5px;
+  width: max-content;
+  color: #fff;
+  font-weight: bold !important;
+  width: 90px;
+  text-align: center;
+}
+._categories_table .content div:last-child {
+  text-align: right;
+}
+._icon {
+  font-size: 24px;
+  margin: 0 6px;
+  cursor: pointer;
+}
+._icon._delete {
+  color: #ff0000;
+}
+._icon._edit {
+  color: #053075;
+}
