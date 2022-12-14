@@ -29,7 +29,71 @@
   width: 120px;
   text-align: center;
 }
+._profile_form {
+  max-width: 600px;
+  margin-bottom: 3rem;
+}
+.form_control {
+  margin-bottom: 20px;
+}
+._profile_form label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 8px !important;
+}
 
+._profile_form ._inputField fieldset {
+  border-radius: 5px !important;
+}
+._profile_form ._inputField div:first-child {
+  height: 3rem !important;
+}
+._profile_form ._selectField {
+  height: 3rem !important;
+}
+._profile_form ._selectField fieldset {
+  border-radius: 5px !important;
+}
+._profile_form ._selectField div:first-child {
+  padding: 0px;
+  display: flex;
+  align-items: center;
+  height: 3rem !important;
+  padding-left: 16px !important;
+}
+
+._profile_form ._dateField fieldset {
+  border-radius: 5px !important;
+}
+._profile_form ._dateField div:first-child {
+  height: 3rem !important;
+}
+._currency_menu {
+  font-weight: bold;
+}
+._currency_menu span {
+  font-weight: 400 !important;
+}
+._submit_btn {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  align-items: center;
+  margin-top: 1rem;
+}
+._submit_btn a {
+  color: #666;
+  font-weight: bold !important;
+}
+._submit_btn button {
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-weight: bold !important;
+  background-color: #2a9d8f;
+}
+.validationMessage {
+  color: #ff0000;
+}
 @media (min-width: 768px) {
   ._title {
     font-size: 28px;

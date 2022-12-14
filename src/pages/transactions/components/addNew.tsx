@@ -11,7 +11,6 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import styles from "./styles.module.css";
 import { expensesList, incomeList } from "../../../static";
-import formatAmount from "../../../utils/formatAmount";
 import InputNumberFormat from "../../../utils/InputNumberFormat";
 
 interface AddTransactionProps {

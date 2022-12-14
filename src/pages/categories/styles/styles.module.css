@@ -8,14 +8,18 @@
 .sectionTitle small {
   font-weight: 500;
 }
+._categories_grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
 @media (min-width: 768px) {
   .sectionTitle {
     display: none;
   }
 }
 ._paper {
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 100%;
 }
 ._categories_table {
   padding: 16px;

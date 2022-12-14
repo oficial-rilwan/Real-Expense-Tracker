@@ -7,6 +7,9 @@ import Home from "./pages/home";
 import Transactions from "./pages/transactions";
 import Categories from "./pages/categories";
 import Settings from "./pages/settings";
+import NotFound from "./pages/404";
+import EditAccount from "./pages/settings/edit";
+import ChangePassword from "./pages/settings/change-password";
 
 function App() {
   const theme = createTheme({
@@ -40,6 +43,18 @@ function App() {
     {
       path: "/settings",
       element: <Settings />,
+    },
+    {
+      path: "/settings/account/edit",
+      element: <EditAccount />,
+    },
+    {
+      path: "/settings/account/change-password",
+      element: <ChangePassword />,
+    },
+    {
+      path: "*",
+      element: <NotFound />,
     },
   ]);
   return (

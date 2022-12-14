@@ -96,3 +96,10 @@ export const colors = [
   "#dcbeff",
   "a9a9a9",
 ];
+
+export const currencies = [
+  { name: "Nigerian Naira", code: "NGN", symbol: "₦" },
+  { name: "British Pound Sterling", code: "GBP", symbol: "£" },
+  { name: "European Euro", code: "EUR", symbol: "€" },
+  { name: "US Dollar", code: "USD", symbol: "$" },
+];

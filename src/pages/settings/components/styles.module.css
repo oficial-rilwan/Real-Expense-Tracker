@@ -67,11 +67,12 @@
     width: 100%;
   }
   ._aside {
-    width: 240px;
+    width: 280px;
     border: none;
   }
   ._aside ._controls {
     border: none;
+    cursor: auto;
   }
   ._aside ._controls ._icon {
     display: none;

@@ -34,26 +34,50 @@ const Categories = () => {
     <Layout>
       <main style={{ padding: 16 }}>
         <div className={styles.sectionTitle}>{SectionTitle(path)}</div>
-        <Paper className={styles._paper}>
-          <div className={styles._categories_table}>
-            <div className={styles.header}>
-              <div>Category</div>
-              <div>Type</div>
-            </div>
-            {allCategories?.map((item: CategoryObject, index) => (
-              <div key={index} className={styles.content}>
-                <div>{item?.name}</div>
-                <div
-                  style={{
-                    background: item?.type === "Income" ? "#07df77" : "#fa2c2c",
-                  }}
-                >
-                  {item?.type}
-                </div>
+        <div className={styles._categories_grid}>
+          <Paper className={styles._paper}>
+            <div className={styles._categories_table}>
+              <div className={styles.header}>
+                <div>Category</div>
+                <div>Type</div>
               </div>
-            ))}
-          </div>
-        </Paper>
+              {incomeCategories?.map((item: CategoryObject, index) => (
+                <div key={index} className={styles.content}>
+                  <div>{item?.name}</div>
+                  <div
+                    style={{
+                      background:
+                        item?.type === "Income" ? "#07df77" : "#fa2c2c",
+                    }}
+                  >
+                    {item?.type}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Paper>
+          <Paper className={styles._paper}>
+            <div className={styles._categories_table}>
+              <div className={styles.header}>
+                <div>Category</div>
+                <div>Type</div>
+              </div>
+              {expenseCategories?.map((item: CategoryObject, index) => (
+                <div key={index} className={styles.content}>
+                  <div>{item?.name}</div>
+                  <div
+                    style={{
+                      background:
+                        item?.type === "Income" ? "#07df77" : "#fa2c2c",
+                    }}
+                  >
+                    {item?.type}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Paper>
+        </div>
       </main>
     </Layout>
   );

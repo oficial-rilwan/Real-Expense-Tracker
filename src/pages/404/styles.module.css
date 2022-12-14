@@ -1,0 +1,31 @@
+.not_found {
+  max-width: 600px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+.img {
+  max-width: 450px;
+  width: 100%;
+}
+.img img {
+  width: 100%;
+}
+._info h2 {
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+}
+._info a {
+  color: #fff;
+  padding: 8px 16px;
+  background-color: #2a9d8f;
+  border-radius: 5px;
+  font-weight: bold;
+  display: block;
+  margin: auto;
+  width: max-content;
+}
