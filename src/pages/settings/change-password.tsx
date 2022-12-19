@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { TextField } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { passwordSchema } from "../../utils/validation";
 import SettingsLayout from "./components/Layout";
 import MessageFeedback from "../../components/feedback";
 import styles from "./styles/styles.module.css";
+import { AuthContext } from "../../context/auth";
+import userService from "../../service/userService";
+import { BeatLoader } from "react-spinners";
 
 interface ChangePasswordDTO {
   currentPassword: string;
@@ -15,10 +18,11 @@ interface ChangePasswordDTO {
 }
 
 const ChangePassword = () => {
+  const navigate = useNavigate();
+  const { token } = useContext(AuthContext);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const {
-    reset,
-    register,
     handleSubmit,
     control,
     formState: { errors },
@@ -32,8 +36,17 @@ const ChangePassword = () => {
   });
 
   async function onSubmit(data: any) {
-    console.log(data);
+    try {
+      setLoading(true);
+      await userService.changePassword(data);
+      navigate("/settings");
+      setLoading(false);
+    } catch (ex: any) {
+      setError(ex.response.data);
+      setLoading(false);
+    }
   }
+  if (!token) return <Navigate to="/" replace={true} />;
   return (
     <SettingsLayout>
       <div>
@@ -111,8 +124,12 @@ const ChangePassword = () => {
           </div>
 
           <div className={styles._submit_btn}>
-            <Link to="">Cancel</Link>
-            <button type="submit">Save new password</button>
+            <Link to="/settings">Cancel</Link>
+            {loading ? (
+              <BeatLoader color="#3f6ad8" />
+            ) : (
+              <button type="submit">Save new password</button>
+            )}
           </div>
         </form>
       </div>

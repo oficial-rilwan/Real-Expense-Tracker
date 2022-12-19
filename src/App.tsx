@@ -1,8 +1,6 @@
-import React from "react";
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import "./App.css";
 import Home from "./pages/home";
 import Transactions from "./pages/transactions";
 import Categories from "./pages/categories";
@@ -10,15 +8,20 @@ import Settings from "./pages/settings";
 import NotFound from "./pages/404";
 import EditAccount from "./pages/settings/edit";
 import ChangePassword from "./pages/settings/change-password";
+import Auth from "./pages/auth/auth";
+import SignUp from "./pages/auth/signup";
+import Dashboard from "./pages/dashboard";
+import { AuthContextProvider } from "./context/auth";
+import "./App.css";
 
 function App() {
   const theme = createTheme({
     palette: {
       primary: {
-        main: "#2a9d8f",
+        main: "#1561f0",
       },
       secondary: {
-        main: "#e76f51",
+        main: "#F4F0E8",
       },
     },
     typography: {
@@ -31,6 +34,19 @@ function App() {
     {
       path: "/",
       element: <Home />,
+    },
+
+    {
+      path: "/auth",
+      element: <Auth />,
+    },
+    {
+      path: "/account/signup",
+      element: <SignUp />,
+    },
+    {
+      path: "/dashboard",
+      element: <Dashboard />,
     },
     {
       path: "/categories",
@@ -59,7 +75,9 @@ function App() {
   ]);
   return (
     <ThemeProvider theme={theme}>
-      <RouterProvider router={router} />
+      <AuthContextProvider>
+        <RouterProvider router={router} />
+      </AuthContextProvider>
     </ThemeProvider>
   );
 }

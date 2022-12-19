@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap");
+
 *,
 html,
 body {
@@ -16,9 +17,13 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Raleway", sans-serif;
+  font-family: "Raleway", sans-serif !important;
+  color: #252422;
 }
-
+p {
+  color: #252422;
+}
+/* #131313, #2b2b2b, #86868b #1561f0 */
 a {
   color: inherit;
   text-decoration: none;
@@ -29,12 +34,15 @@ button {
   background: transparent;
   cursor: pointer;
 }
+input {
+  font-size: 16px !important;
+}
 
 .bg-dark {
-  background: #264653;
+  background: #252422;
 }
 .color-dark {
-  color: #264653;
+  color: #252422;
 }
 .flex {
   display: flex;
@@ -51,12 +59,13 @@ button {
 .user_avatar {
   font-size: 16px !important;
   font-weight: bold !important;
-  background: #264653 !important;
+  background: #252422 !important;
 }
 .presentation {
   width: 100%;
+  height: calc(100vh - 7.5rem);
   overflow-y: auto;
-  height: calc(100vh - 4rem);
+  background-color: #f1f4f6;
 }
 .logo {
   display: none;
@@ -66,28 +75,61 @@ button {
   display: flex !important;
 }
 .logo .icon {
-  color: #e76f51;
-  font-size: 2rem;
+  color: #1561f0;
+  font-size: 1.7rem;
 }
 .logo span {
-  font-size: 1.5rem;
+  color: #1561f0;
+  font-size: 1.2rem;
   font-weight: bold;
-  color: #e76f51;
+}
+.section_title {
+  background: #f7f9fa;
+  min-height: 8rem;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+}
+.section_title .icon_wrapper {
+  background-color: #fff;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+}
+.icon_wrapper .icon {
+  color: #f895b2;
+  font-size: 34px;
+}
+.section_title p {
+  font-size: 24px;
+  font-weight: 500;
+}
+.section_title small {
+  color: #787d83;
+}
+.paper {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px !important;
+  width: 100%;
+  height: 100%;
+  border-radius: 3px !important;
 }
 @media (min-width: 768px) {
-  .header_logo {
-    display: none !important;
-  }
 }
 @media (min-width: 920px) {
   .presentation {
-    height: 100vh;
+    height: calc(100vh - 4rem);
   }
   .logo {
     display: flex;
     align-items: center;
-    padding: 16px;
+    padding: 8px 16px;
     padding-left: 22px;
     gap: 6px;
+    height: 3.5rem;
   }
 }

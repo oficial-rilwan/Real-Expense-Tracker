@@ -25,40 +25,40 @@ const titles = {
 
 function SectionTitle(path: string = "") {
   switch (path) {
-    case "":
+    case "dashboard":
       return (
-        <React.Fragment>
+        <div className="content">
           <p>{titles["dashboard"].title}</p>
           <small>{titles["dashboard"].subtitle}</small>
-        </React.Fragment>
+        </div>
       );
     case "categories":
       return (
-        <React.Fragment>
+        <div className="content">
           <p>{titles["categories"].title}</p>
           <small>{titles["categories"].subtitle}</small>
-        </React.Fragment>
+        </div>
       );
     case "transactions":
       return (
-        <React.Fragment>
+        <div className="content">
           <p>{titles["transactions"].title}</p>
           <small>{titles["transactions"].subtitle}</small>
-        </React.Fragment>
+        </div>
       );
     case "report":
       return (
-        <React.Fragment>
+        <div className="content">
           <p>{titles["report"].title}</p>
           <small>{titles["report"].subtitle}</small>
-        </React.Fragment>
+        </div>
       );
     case "settings":
       return (
-        <React.Fragment>
+        <div className="content">
           <p>{titles["settings"].title}</p>
           <small>{titles["settings"].subtitle}</small>
-        </React.Fragment>
+        </div>
       );
   }
 }

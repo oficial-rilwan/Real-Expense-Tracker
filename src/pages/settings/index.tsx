@@ -1,9 +1,14 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import moment from "moment";
+import React, { useContext } from "react";
+import { Link, Navigate } from "react-router-dom";
+import { AuthContext } from "../../context/auth";
 import SettingsLayout from "./components/Layout";
 import styles from "./styles/styles.module.css";
 
 const Settings = () => {
+  const { token, user } = useContext(AuthContext);
+
+  if (!token) return <Navigate to="/" replace={true} />;
   return (
     <SettingsLayout>
       <div>
@@ -11,31 +16,33 @@ const Settings = () => {
         <div className={styles._details_wrapper}>
           <div className={styles._details}>
             <div>First name</div>
-            <div>Rilwan</div>
+            <div>{user && user?.firstName}</div>
           </div>
           <div className={styles._details}>
             <div>Last name</div>
-            <div>Aribidesi</div>
+            <div>{user && user?.lastName}</div>
           </div>
           <div className={styles._details}>
             <div>Email</div>
-            <div>rilwan@mail.com</div>
+            <div>{user && user?.email}</div>
           </div>
           <div className={styles._details}>
             <div>Gender</div>
-            <div>Male</div>
+            <div>{user && user?.gender}</div>
           </div>
           <div className={styles._details}>
             <div>Date of birth</div>
-            <div>10 May, 1923</div>
+            <div>
+              {user && moment(user?.dateOfBirth).format("DD MMM, YYYY")}
+            </div>
           </div>
           <div className={styles._details}>
             <div>Country of region</div>
-            <div>Nigeria</div>
+            <div>{user && user?.country}</div>
           </div>
           <div className={styles._details}>
             <div>Preferred currency</div>
-            <div>US Dollar</div>
+            <div>{user && user?.currency}</div>
           </div>
         </div>
         <div>

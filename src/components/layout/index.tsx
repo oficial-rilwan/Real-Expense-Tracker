@@ -8,11 +8,11 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <div style={{ overflow: "hidden", height: "100vh" }} className="flex">
-      <Sidebar />
-      <div className="presentation">
-        <Header />
-        {children}
+    <div id="layout" style={{ overflow: "hidden" }}>
+      <Header />
+      <div className="flex">
+        <Sidebar />
+        <div className="presentation">{children}</div>
       </div>
     </div>
   );

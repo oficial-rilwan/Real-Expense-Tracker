@@ -4,18 +4,18 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 4rem;
   background: #fff;
-  border-top: 1px solid #ccc;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
 }
 .sidebar_links {
   display: flex;
   justify-content: space-between;
+  height: 3.5rem;
   gap: 16px;
-  height: 100%;
 }
 .sidebar_icon {
-  color: #333;
+  color: #8f959c;
+  font-size: 24px !important;
 }
 .sidebar_links ul {
   flex: 1;
@@ -31,20 +31,31 @@
   display: none;
 }
 .sidebar_links ul .active * {
-  color: #e76f51;
+  color: #1561f0;
 }
+
 .sidebar_links ul li a {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 .sidebar_links ul li a span {
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 12px;
+  font-weight: 400;
+  color: #8f959c;
+}
+.sidebar_links ul .active a span {
+  font-size: 12px;
+  font-weight: 600 !important;
 }
 
 .header {
   width: 100%;
+  background: #fafafa;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 .nav_bar {
@@ -52,7 +63,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px;
+  padding: 8px 16px;
+  height: 4rem;
 }
 .header_titles {
   display: none;
@@ -68,19 +80,20 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  cursor: pointer;
+  position: relative;
 }
 .user_info > span {
-  font-weight: bold !important;
+  font-weight: 600 !important;
+  font-size: 14px;
   display: none;
 }
 
 @media (min-width: 768px) {
   .nav_bar {
-    align-items: flex-start;
+    align-items: center;
   }
-  .header_titles {
-    display: block;
-  }
+
   .header_titles p {
     font-size: 28px;
     font-weight: bold !important;
@@ -92,6 +105,9 @@
   .sidebar_links ul li a span {
     font-size: 16px;
   }
+  .sidebar_links ul .active a span {
+    font-size: 16px;
+  }
   .sidebar_links ul li:nth-child(4) {
     display: block;
   }
@@ -101,9 +117,9 @@
   .sidebar {
     display: block;
     position: relative;
-    border-right: 1px solid #ccc;
+    /* box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; */
     width: 300px;
-    min-height: 100vh;
+    min-height: calc (100vh - 4rem);
   }
   .sidebar_links {
     display: flex;
@@ -119,11 +135,13 @@
   }
   .sidebar_links ul li {
     margin-bottom: 8px;
-    border-left: 5px solid #fff;
+    border-left: 5px solid transparent;
+  }
+  .sidebar_links ul li:hover {
+    background: #f1f4f6;
   }
   .sidebar_links ul .active {
-    border-left: 5px solid #e76f51;
-    background: #2a9d9036;
+    border-left: 5px solid #1561f0;
   }
   .sidebar_links ul li a {
     display: flex;

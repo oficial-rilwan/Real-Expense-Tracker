@@ -37,7 +37,8 @@
   gap: 8px;
 }
 ._aside ul li ._active_link * {
-  color: #e76f51;
+  color: #1561f0;
+  font-weight: bold;
 }
 ._aside ul li:last-child a {
   border: none;

@@ -1,78 +1,56 @@
-import React from "react";
 import Layout from "../../components/layout";
 import styles from "./styles/styles.module.css";
 import { expensesList, incomeList } from "../../static";
 import { Paper } from "@mui/material";
 import { useLocation } from "react-router-dom";
+import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
+
 import SectionTitle from "../../components/sectionTitle";
 
 interface CategoryObject {
   name: string;
   type: string;
+  Icon: any;
 }
 
 const Categories = () => {
   const { pathname } = useLocation();
   const path = pathname.split("/")[1];
 
-  const incomeCategories = incomeList.map((item) => ({
-    name: item,
-    type: "Income",
-  }));
-  const expenseCategories = expensesList.map((item) => ({
-    name: item,
-    type: "Expenses",
-  }));
-  let allCategories: CategoryObject[] = [
-    ...incomeCategories,
-    ...expenseCategories,
-  ].sort((a: any, b: any) => {
-    return a?.name > b?.name ? 1 : -1;
-  });
-
   return (
     <Layout>
-      <main style={{ padding: 16 }}>
-        <div className={styles.sectionTitle}>{SectionTitle(path)}</div>
-        <div className={styles._categories_grid}>
-          <Paper className={styles._paper}>
+      <main>
+        <div className="section_title">
+          <div className="icon_wrapper">
+            <CategoryOutlinedIcon className="icon" />
+          </div>
+          {SectionTitle(path)}
+        </div>
+        <div style={{ padding: 16 }} className={styles._categories_grid}>
+          <Paper className={`paper ${styles._paper}`}>
             <div className={styles._categories_table}>
               <div className={styles.header}>
                 <div>Category</div>
                 <div>Type</div>
               </div>
-              {incomeCategories?.map((item: CategoryObject, index) => (
+              {incomeList?.map(({ name, type }: CategoryObject, index) => (
                 <div key={index} className={styles.content}>
-                  <div>{item?.name}</div>
-                  <div
-                    style={{
-                      background:
-                        item?.type === "Income" ? "#07df77" : "#fa2c2c",
-                    }}
-                  >
-                    {item?.type}
-                  </div>
+                  <div>{name}</div>
+                  <div style={{ background: "#07df77" }}>{type}</div>
                 </div>
               ))}
             </div>
           </Paper>
-          <Paper className={styles._paper}>
+          <Paper className={`paper ${styles._paper}`}>
             <div className={styles._categories_table}>
               <div className={styles.header}>
                 <div>Category</div>
                 <div>Type</div>
               </div>
-              {expenseCategories?.map((item: CategoryObject, index) => (
+              {expensesList?.map(({ name, type }: CategoryObject, index) => (
                 <div key={index} className={styles.content}>
-                  <div>{item?.name}</div>
-                  <div
-                    style={{
-                      background:
-                        item?.type === "Income" ? "#07df77" : "#fa2c2c",
-                    }}
-                  >
-                    {item?.type}
-                  </div>
+                  <div>{name}</div>
+                  <div style={{ background: "#fa2c2c" }}>{type}</div>
                 </div>
               ))}
             </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -6,13 +6,16 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { MenuItem, Select, TextField } from "@mui/material";
 import SettingsLayout from "./components/Layout";
 import styles from "./styles/styles.module.css";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import countries from "../../static/countries";
 import { currencies } from "../../static";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { userSchema } from "../../utils/validation";
 import MessageFeedback from "../../components/feedback";
+import { AuthContext } from "../../context/auth";
+import userService from "../../service/userService";
+import { BeatLoader } from "react-spinners";
 
 interface CreateUserDto {
   firstName: string;
@@ -24,21 +27,14 @@ interface CreateUserDto {
   currency?: string;
 }
 
-const user: CreateUserDto = {
-  firstName: "Rilwan",
-  lastName: "Aribidesi",
-  email: "rilwan@mail.com",
-  gender: "male",
-  country: "Nigeria",
-  dateOfBirth: new Date(),
-  currency: "USD",
-};
-
 const EditAccount = () => {
+  const navigate = useNavigate();
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const { token, user, refreshUser } = useContext(AuthContext);
+
   const {
     reset,
-    register,
     handleSubmit,
     control,
     formState: { errors },
@@ -56,7 +52,16 @@ const EditAccount = () => {
   });
 
   async function onSubmit(data: any) {
-    console.log(data);
+    try {
+      setLoading(true);
+      await userService.updateUser(data);
+      refreshUser();
+      navigate("/settings");
+      setLoading(false);
+    } catch (ex: any) {
+      setError(ex.response.data);
+      setLoading(false);
+    }
   }
 
   useEffect(() => {
@@ -71,6 +76,7 @@ const EditAccount = () => {
       currency: user?.currency,
     });
   }, [user]);
+  if (!token) return <Navigate to="/" replace={true} />;
   return (
     <SettingsLayout>
       <div>
@@ -254,8 +260,12 @@ const EditAccount = () => {
             )}
           </div>
           <div className={styles._submit_btn}>
-            <Link to="">Cancel</Link>
-            <button type="submit">Save profile</button>
+            <Link to="/settings">Cancel</Link>
+            {loading ? (
+              <BeatLoader color="#3f6ad8" />
+            ) : (
+              <button type="submit">Save profile</button>
+            )}
           </div>
         </form>
       </div>

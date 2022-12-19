@@ -13,14 +13,10 @@ const Sidebar = () => {
 
   return (
     <div className={styles.sidebar}>
-      <div className="logo">
-        <AccountBalanceIcon className="icon" />
-        <span>RealExp</span>
-      </div>
       <div className={styles.sidebar_links}>
         <ul>
-          <li className={pathname === "/" ? styles.active : ""}>
-            <Link to="/">
+          <li className={pathname.includes("dashboard") ? styles.active : ""}>
+            <Link to="/dashboard">
               <DashboardOutlinedIcon className={styles.sidebar_icon} />
               <span>Dashboard</span>
             </Link>

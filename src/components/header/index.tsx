@@ -1,28 +1,39 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import styles from "../styles/styles.module.css";
-import SectionTitle from "../sectionTitle";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import UserMenu from "../user-menu";
+import ClickAwayListener from "@mui/base/ClickAwayListener";
+import { AuthContext } from "../../context/auth";
 
 const Header = () => {
-  const { pathname } = useLocation();
-  const path = pathname.split("/")[1];
+  const [open, setOpen] = useState(false);
+  const { user } = useContext(AuthContext);
 
   return (
     <header className={styles.header}>
       <nav className={styles.nav_bar}>
-        <div className="logo header_logo">
+        <Link to="/" className="logo header_logo">
           <AccountBalanceIcon className="icon" />
           <span>RealExp</span>
-        </div>
-        <div className={styles.header_titles}>{SectionTitle(path)}</div>
-        <div className={styles.user_info}>
-          <Avatar src="" alt="Rilwan" className="user_avatar">
-            RA
-          </Avatar>
-          <span>Rilwan</span>
-        </div>
+        </Link>
+        <ClickAwayListener onClickAway={() => setOpen(false)}>
+          <div
+            onClick={() => setOpen((prev) => !prev)}
+            className={styles.user_info}
+            role="button"
+          >
+            <Avatar src="" alt="Rilwan" className="user_avatar">
+              {user &&
+                `${user?.firstName?.charAt(0)}${user?.lastName?.charAt(0)}`}
+            </Avatar>
+            <span>{user && user?.firstName}</span>
+            <KeyboardArrowDownIcon />
+            <UserMenu open={open} />
+          </div>
+        </ClickAwayListener>
       </nav>
     </header>
   );

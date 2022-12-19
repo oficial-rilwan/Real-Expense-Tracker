@@ -63,11 +63,11 @@
   outline: 3px solid #9e9d9d79;
 }
 ._dialog_body ._btn_gp button:first-child {
-  background-color: #2a9d8f;
+  background-color: #1561f0;
   color: #fff;
 }
 ._dialog_body ._btn_gp button:first-child:focus {
-  outline: 3px solid #3acdbb;
+  outline: 3px solid #6d9bf0;
 }
 
 @media (min-width: 768px) {
@@ -79,7 +79,7 @@
   }
   ._input_field {
     display: grid;
-    gap: 16px;
+    column-gap: 16px;
     align-items: center;
     grid-template-columns: repeat(12, 1fr);
     margin-bottom: 16px;
@@ -96,5 +96,14 @@
   ._input_field ._input {
     grid-column: span 9;
     margin-bottom: 0 !important;
+  }
+  ._input_field span :first-child {
+    grid-column: span 3;
+  }
+  .validationMessage {
+    grid-column: span 12;
+    margin-left: 120px;
+    color: red;
+    font-size: 14px;
   }
 }

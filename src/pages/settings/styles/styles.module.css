@@ -4,9 +4,10 @@
   margin-bottom: 1.5rem;
 }
 ._details_wrapper {
-  border: 1px solid #ccc;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px !important;
   border-radius: 5px;
   margin-bottom: 1rem;
+  background-color: #fff;
 }
 ._details_wrapper ._details {
   display: grid;
@@ -22,12 +23,17 @@
   font-weight: 600;
 }
 ._edit_btn {
-  padding: 8px 6px;
-  border: 1px solid #2a9d8f;
-  border-radius: 5px;
-  display: block;
-  width: 120px;
-  text-align: center;
+  padding: 6px 16px;
+  border: 2px solid #333;
+  border-radius: 3.5px;
+  display: inline-block;
+  transition: 0.1s all ease-out;
+  font-weight: 600;
+  font-size: 14px;
+}
+._edit_btn:hover {
+  background-color: #333;
+  color: #fff;
 }
 ._profile_form {
   max-width: 600px;
@@ -41,7 +47,9 @@
   display: block;
   margin-bottom: 8px !important;
 }
-
+._profile_form ._inputField {
+  background-color: #fff;
+}
 ._profile_form ._inputField fieldset {
   border-radius: 5px !important;
 }
@@ -50,6 +58,7 @@
 }
 ._profile_form ._selectField {
   height: 3rem !important;
+  background-color: #fff;
 }
 ._profile_form ._selectField fieldset {
   border-radius: 5px !important;
@@ -62,6 +71,9 @@
   padding-left: 16px !important;
 }
 
+._profile_form ._dateField {
+  background-color: #fff;
+}
 ._profile_form ._dateField fieldset {
   border-radius: 5px !important;
 }
@@ -89,7 +101,8 @@
   padding: 8px 16px;
   border-radius: 5px;
   font-weight: bold !important;
-  background-color: #2a9d8f;
+  background-color: #1561f0;
+  color: #fff;
 }
 .validationMessage {
   color: #ff0000;
