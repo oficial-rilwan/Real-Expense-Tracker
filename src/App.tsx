@@ -13,6 +13,7 @@ import SignUp from "./pages/auth/signup";
 import Dashboard from "./pages/dashboard";
 import { AuthContextProvider } from "./context/auth";
 import "./App.css";
+import { GlobalDataProvider } from "./context/globalData";
 
 function App() {
   const theme = createTheme({
@@ -76,7 +77,9 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <AuthContextProvider>
-        <RouterProvider router={router} />
+        <GlobalDataProvider>
+          <RouterProvider router={router} />
+        </GlobalDataProvider>
       </AuthContextProvider>
     </ThemeProvider>
   );

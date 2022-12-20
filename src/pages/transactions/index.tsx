@@ -7,11 +7,13 @@ import {
   TextField,
 } from "@mui/material";
 import moment from "moment";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Layout from "../../components/layout";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import SectionTitle from "../../components/sectionTitle";
-import { transactions } from "../../static";
 import categoryColor from "../../utils/categoryColor";
 import formatAmount from "../../utils/formatAmount";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
@@ -22,6 +24,8 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import PieChartOutlineIcon from "@mui/icons-material/PieChartOutline";
 import AppsIcon from "@mui/icons-material/Apps";
+import { GlobalData } from "../../context/globalData";
+import { expensesList, incomeList } from "../../static";
 
 interface Transaction {
   date: Date;
@@ -34,7 +38,28 @@ interface Transaction {
 const Transactions = () => {
   const { pathname } = useLocation();
   const path = pathname.split("/")[1];
+  const { refresh, transactions, getTransactions } = useContext(GlobalData);
   const [open, setOpen] = useState(false);
+  const [queries, setQueries] = useState({
+    page: 1,
+    type: "",
+    category: "",
+  });
+
+  useEffect(() => {
+    getTransactions(queries);
+  }, [refresh, queries?.page, queries?.type, queries?.category]);
+
+  const categories = queries?.type === "Income" ? incomeList : expensesList;
+
+  function clearFields() {
+    setQueries((prev) => ({
+      ...prev,
+      type: "",
+      category: "",
+    }));
+  }
+
   return (
     <Layout>
       <main>
@@ -51,23 +76,17 @@ const Transactions = () => {
                 <AccountBalanceWalletOutlinedIcon className={styles.icon} />
                 <span>Transactions</span>
               </div>
-              <button onClick={() => setOpen(true)}>Add new</button>
+              <div className={styles._header_actions}>
+                <button onClick={clearFields}>Clear filters</button>
+                <button onClick={() => setOpen(true)}>Add new</button>
+              </div>
             </div>
             <div className={styles._filters}>
               <div className={styles.input_field}>
-                <label>Show:</label>
-                <Select style={{ width: 100 }} size="small" value="">
-                  <MenuItem value="10">10</MenuItem>
-                  <MenuItem value="25">25</MenuItem>
-                  <MenuItem value="50">50</MenuItem>
-                  <MenuItem value="100">100</MenuItem>
-                </Select>
-              </div>
-              <div className={styles.input_field}>
-                <label>Search:</label>
                 <TextField
                   className={styles.input}
-                  style={{ width: 220 }}
+                  placeholder="search"
+                  fullWidth
                   size="small"
                   InputProps={{
                     startAdornment: (
@@ -78,17 +97,63 @@ const Transactions = () => {
                   }}
                 />
               </div>
+              <div className={styles.input_field}>
+                <Select
+                  fullWidth
+                  size="small"
+                  displayEmpty
+                  value={queries.type}
+                  onChange={(e) =>
+                    setQueries((prev) => ({ ...prev, type: e.target.value }))
+                  }
+                >
+                  <MenuItem value="">type</MenuItem>
+                  <MenuItem value="Income">Income</MenuItem>
+                  <MenuItem value="Expenses">Expenses</MenuItem>
+                </Select>
+              </div>
+              <div className={styles.input_field}>
+                <Select
+                  fullWidth
+                  displayEmpty
+                  size="small"
+                  value={queries.category}
+                  onChange={(e) =>
+                    setQueries((prev) => ({
+                      ...prev,
+                      category: e.target.value,
+                    }))
+                  }
+                >
+                  <MenuItem value="">category</MenuItem>
+                  {categories?.map((item, index) => (
+                    <MenuItem key={index} value={item?.name}>
+                      {item?.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </div>
+              <div className={styles.input_field}>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DatePicker
+                    value={new Date()}
+                    onChange={(event) => console.log(event)}
+                    renderInput={(params) => (
+                      <TextField fullWidth size="small" {...params} />
+                    )}
+                  />
+                </LocalizationProvider>
+              </div>
             </div>
             <div className={styles._categories_table}>
               <div className={styles.header}>
-                <div>#</div>
-                <div>Type</div>
                 <div>Category</div>
+                <div>Type</div>
                 <div>Date</div>
                 <div>Amount</div>
                 <div>Action</div>
               </div>
-              {transactions?.map((item, index) => (
+              {transactions?.data?.map((item: any, index: number) => (
                 <div
                   style={{
                     background: index % 2 === 0 ? "#f7f7f7" : "#fff",
@@ -96,7 +161,7 @@ const Transactions = () => {
                   key={index}
                   className={styles.content}
                 >
-                  <div>#{index + 100}</div>
+                  <div>{item?.category}</div>
                   <div>
                     <div
                       style={{
@@ -107,7 +172,6 @@ const Transactions = () => {
                       {item?.type}
                     </div>
                   </div>
-                  <div>{item?.category}</div>
 
                   <div>{moment(item?.date).format("MMM D, YYYY")}</div>
                   <div>{formatAmount(item?.amount)}</div>
@@ -120,10 +184,13 @@ const Transactions = () => {
               ))}
             </div>
             <div className={styles._footer}>
-              <div>Showing 1 to 10 of 57 entries</div>
+              <div>{`Showing 1 to ${transactions?.data.length} of ${transactions?.totalDocs} entries`}</div>
               <div>
                 <Pagination
-                  count={10}
+                  onChange={(e, value) =>
+                    setQueries((prev) => ({ ...prev, page: value }))
+                  }
+                  count={transactions?.pageSize}
                   shape="rounded"
                   variant="outlined"
                   color="primary"

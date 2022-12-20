@@ -80,6 +80,7 @@
   padding: 16px;
   border-bottom: 1px solid #e9ecf3;
 }
+
 ._data ._header {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -145,6 +146,7 @@
   font-size: 20px;
 }
 ._data ._footer {
+  margin-top: auto;
   padding: 16px;
   display: flex;
   gap: 16px;
@@ -175,7 +177,7 @@
   margin-bottom: 16px;
 }
 .exp_grid .exp_category {
-  grid-column: span 5;
+  grid-column: span 12;
 }
 
 .exp_categories .title {
@@ -219,5 +221,10 @@
 @media (min-width: 768px) {
   .sectionTitle {
     display: none;
+  }
+}
+@media (min-width: 900px) {
+  .exp_grid .exp_category {
+    grid-column: span 5;
   }
 }

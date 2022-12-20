@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Dialog from "@mui/material/Dialog";
 import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
@@ -16,6 +16,9 @@ import { expensesList, incomeList } from "../../../static";
 import InputNumberFormat from "../../../utils/InputNumberFormat";
 import { transactionSchema } from "../../../utils/validation";
 import MessageFeedback from "../../../components/feedback";
+import transactionService from "../../../service/transactionService";
+import { BeatLoader } from "react-spinners";
+import { GlobalData } from "../../../context/globalData";
 
 interface AddTransactionProps {
   open: boolean;
@@ -31,7 +34,10 @@ interface CreateTransactionDto {
 }
 
 const AddTransaction = ({ open, close }: AddTransactionProps) => {
+  const { refreshData } = useContext(GlobalData);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const {
     reset,
     watch,
@@ -50,10 +56,18 @@ const AddTransaction = ({ open, close }: AddTransactionProps) => {
   });
 
   async function onSubmit(data: any) {
-    console.log(data);
+    try {
+      setLoading(true);
+      await transactionService.create(data);
+      refreshData();
+      close();
+    } catch (ex: any) {
+      setLoading(false);
+      setError(ex.response.data);
+    }
   }
 
-  const types = watch("category") === "Income" ? incomeList : expensesList;
+  const categories = watch("type") === "Income" ? incomeList : expensesList;
 
   return (
     <Dialog
@@ -69,6 +83,7 @@ const AddTransaction = ({ open, close }: AddTransactionProps) => {
           </IconButton>
         </div>
       </header>
+
       <form className={styles._dialog_body} onSubmit={handleSubmit(onSubmit)}>
         {error && <MessageFeedback message={error} severity="error" />}
         <div className={styles._input_field}>
@@ -104,36 +119,6 @@ const AddTransaction = ({ open, close }: AddTransactionProps) => {
         </div>
         <div className={styles._input_field}>
           <label>
-            Category: <span>*</span>
-          </label>
-          <Controller
-            name="category"
-            control={control}
-            render={({ field }) => (
-              <Select
-                className={styles._input}
-                fullWidth
-                size="small"
-                variant="outlined"
-                displayEmpty
-                {...field}
-                error={Boolean(errors?.category)}
-              >
-                <MenuItem value="">--select category --</MenuItem>
-                <MenuItem value="Income">Income</MenuItem>
-                <MenuItem value="Expenses">Expenses</MenuItem>
-              </Select>
-            )}
-          />
-
-          {errors?.category && (
-            <span className={styles.validationMessage}>
-              {errors.category.message}
-            </span>
-          )}
-        </div>
-        <div className={styles._input_field}>
-          <label>
             Type: <span>*</span>
           </label>
           <Controller
@@ -150,7 +135,37 @@ const AddTransaction = ({ open, close }: AddTransactionProps) => {
                 error={Boolean(errors?.type)}
               >
                 <MenuItem value="">-- select type --</MenuItem>
-                {types?.map((item, index) => (
+                <MenuItem value="Income">Income</MenuItem>
+                <MenuItem value="Expenses">Expenses</MenuItem>
+              </Select>
+            )}
+          />
+
+          {errors?.type && (
+            <span className={styles.validationMessage}>
+              {errors.type.message}
+            </span>
+          )}
+        </div>
+        <div className={styles._input_field}>
+          <label>
+            Category: <span>*</span>
+          </label>
+          <Controller
+            name="category"
+            control={control}
+            render={({ field }) => (
+              <Select
+                className={styles._input}
+                fullWidth
+                size="small"
+                variant="outlined"
+                displayEmpty
+                {...field}
+                error={Boolean(errors?.category)}
+              >
+                <MenuItem value="">-- select category --</MenuItem>
+                {categories?.map((item, index) => (
                   <MenuItem key={index} value={item?.name}>
                     {item?.name}
                   </MenuItem>
@@ -159,9 +174,9 @@ const AddTransaction = ({ open, close }: AddTransactionProps) => {
             )}
           />
 
-          {errors?.type && (
+          {errors?.category && (
             <span className={styles.validationMessage}>
-              {errors.type.message}
+              {errors.category.message}
             </span>
           )}
         </div>
@@ -213,7 +228,11 @@ const AddTransaction = ({ open, close }: AddTransactionProps) => {
           />
         </div>
         <div className={styles._btn_gp}>
-          <button type="submit">Save</button>
+          {loading ? (
+            <BeatLoader color="#3f6ad8" />
+          ) : (
+            <button type="submit">Save</button>
+          )}
           <button type="button" onClick={close}>
             Cancel
           </button>

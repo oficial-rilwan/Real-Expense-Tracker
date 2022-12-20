@@ -7,7 +7,7 @@ export default function (props: any) {
     <CurrencyFormat
       {...other}
       getInputRef={inputRef}
-      prefix={""}
+      // prefix={""}
       onValueChange={(values: any) => {
         onChange({
           target: {
