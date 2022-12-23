@@ -1,5 +1,4 @@
-import { createContext, useEffect, useState } from "react";
-import useNetworkStatus from "../hooks/useNetworkStatus";
+import { createContext, useState } from "react";
 import Transaction from "../interface/transaction";
 import transactionService from "../service/transactionService";
 
@@ -27,7 +26,6 @@ interface GlobalDataContextProp {
 export const GlobalData = createContext({} as GlobalDataDetails);
 
 export const GlobalDataProvider = ({ children }: GlobalDataContextProp) => {
-  const { isConnected } = useNetworkStatus();
   const [loading, setLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [transactions, setTransactions] = useState<TransactionsData | null>(
@@ -59,6 +57,7 @@ export const GlobalDataProvider = ({ children }: GlobalDataContextProp) => {
 
   async function getTransactions(queries: any) {
     try {
+      setLoading(true);
       const { data } = await transactionService.getTransactions(queries);
       setTransactions(data);
       setLoading(false);

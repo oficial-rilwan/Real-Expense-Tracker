@@ -14,31 +14,30 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import SectionTitle from "../../components/sectionTitle";
-import categoryColor from "../../utils/categoryColor";
 import formatAmount from "../../utils/formatAmount";
-import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
-import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import styles from "./styles/styles.module.css";
 import AddTransaction from "./components/addNew";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
-import PieChartOutlineIcon from "@mui/icons-material/PieChartOutline";
 import AppsIcon from "@mui/icons-material/Apps";
 import { GlobalData } from "../../context/globalData";
 import { expensesList, incomeList } from "../../static";
+import { SectionLoader } from "../../components/sectionLoader";
+import EmptyData from "../../components/feedback/Empty";
 
-interface Transaction {
-  date: Date;
-  category: string;
-  type: string;
-  amount: number;
-  note: string;
-}
+// interface Transaction {
+//   date: Date;
+//   category: string;
+//   type: string;
+//   amount: number;
+//   note: string;
+// }
 
 const Transactions = () => {
   const { pathname } = useLocation();
   const path = pathname.split("/")[1];
-  const { refresh, transactions, getTransactions } = useContext(GlobalData);
+  const { refresh, loading, transactions, getTransactions } =
+    useContext(GlobalData);
   const [open, setOpen] = useState(false);
   const [queries, setQueries] = useState({
     page: 1,
@@ -145,6 +144,7 @@ const Transactions = () => {
                 </LocalizationProvider>
               </div>
             </div>
+
             <div className={styles._categories_table}>
               <div className={styles.header}>
                 <div>Category</div>
@@ -153,35 +153,45 @@ const Transactions = () => {
                 <div>Amount</div>
                 <div>Action</div>
               </div>
-              {transactions?.data?.map((item: any, index: number) => (
-                <div
-                  style={{
-                    background: index % 2 === 0 ? "#f7f7f7" : "#fff",
-                  }}
-                  key={index}
-                  className={styles.content}
-                >
-                  <div>{item?.category}</div>
-                  <div>
+              {loading ? (
+                <SectionLoader />
+              ) : transactions && transactions?.data?.length > 0 ? (
+                <React.Fragment>
+                  {transactions?.data?.map((item: any, index: number) => (
                     <div
                       style={{
-                        background:
-                          item?.type === "Income" ? "#3ac47d" : "#d92550",
+                        background: index % 2 === 0 ? "#f7f7f7" : "#fff",
                       }}
+                      key={index}
+                      className={styles.content}
                     >
-                      {item?.type}
-                    </div>
-                  </div>
+                      <div>{item?.category}</div>
+                      <div>
+                        <div
+                          style={{
+                            background:
+                              item?.type === "Income" ? "#3ac47d" : "#d92550",
+                          }}
+                        >
+                          {item?.type}
+                        </div>
+                      </div>
 
-                  <div>{moment(item?.date).format("MMM D, YYYY")}</div>
-                  <div>{formatAmount(item?.amount)}</div>
-                  <div>
-                    <button>
-                      <AppsIcon className={styles._icon} />
-                    </button>
-                  </div>
-                </div>
-              ))}
+                      <div>{moment(item?.date).format("MMM D, YYYY")}</div>
+                      <div>{formatAmount(item?.amount)}</div>
+                      <div>
+                        <button>
+                          <AppsIcon className={styles._icon} />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </React.Fragment>
+              ) : (
+                !loading &&
+                transactions &&
+                transactions?.data?.length === 0 && <EmptyData />
+              )}
             </div>
             <div className={styles._footer}>
               <div>{`Showing 1 to ${transactions?.data.length} of ${transactions?.totalDocs} entries`}</div>

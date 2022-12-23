@@ -15,4 +15,19 @@ const Loader = () => {
   );
 };
 
+export function SectionLoader() {
+  return (
+    <div
+      style={{
+        height: "10rem",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <BeatLoader color="#3f6ad8" />
+    </div>
+  );
+}
+
 export default Loader;

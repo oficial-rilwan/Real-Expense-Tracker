@@ -27,9 +27,9 @@
   gap: 16px;
   padding: 16px;
 }
-.sidebar_links ul li:nth-child(4) {
+/* .sidebar_links ul li:nth-child(4) {
   display: none;
-}
+} */
 .sidebar_links ul .active * {
   color: #1561f0;
 }

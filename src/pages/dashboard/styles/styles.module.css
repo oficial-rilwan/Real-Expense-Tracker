@@ -72,6 +72,7 @@
 
 ._data_display {
   overflow-x: auto;
+  height: 100%;
 }
 ._data_display .title {
   font-weight: bold !important;
@@ -80,7 +81,11 @@
   padding: 16px;
   border-bottom: 1px solid #e9ecf3;
 }
-
+._data {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
 ._data ._header {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

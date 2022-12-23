@@ -66,6 +66,7 @@ input {
   height: calc(100vh - 7.5rem);
   overflow-y: auto;
   background-color: #f1f4f6;
+  padding-bottom: 5rem;
 }
 .logo {
   display: none;

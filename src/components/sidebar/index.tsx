@@ -1,10 +1,9 @@
-import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
+// import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import AssessmentOutlinedIcon from "@mui/icons-material/AssessmentOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+// import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import styles from "../styles/styles.module.css";
 
@@ -21,12 +20,12 @@ const Sidebar = () => {
               <span>Dashboard</span>
             </Link>
           </li>
-          <li className={pathname.includes("categories") ? styles.active : ""}>
+          {/* <li className={pathname.includes("categories") ? styles.active : ""}>
             <Link to="/categories">
               <CategoryOutlinedIcon className={styles.sidebar_icon} />
               <span>Categories</span>
             </Link>
-          </li>
+          </li> */}
           <li
             className={pathname.includes("transactions") ? styles.active : ""}
           >

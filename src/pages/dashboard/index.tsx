@@ -22,15 +22,13 @@ import AddTransaction from "../transactions/components/addNew";
 import { AuthContext } from "../../context/auth";
 import useCurrencyFormat from "../../hooks/useCurrencyFormat";
 import categoryColor from "../../utils/categoryColor";
-import Transaction from "../../interface/transaction";
-import ExpCategory from "../../interface/expense_cat";
 import transactionService from "../../service/transactionService";
 import CategoryIcon from "../../components/categoryIcon";
 import getPercentageFromTotal from "../../utils/getPercentageFromTotal";
 import Loader from "../../components/sectionLoader";
-import { months } from "../../static";
 import getMonthlyData from "../../utils/getMonthlyData";
 import { GlobalData } from "../../context/globalData";
+import EmptyData from "../../components/feedback/Empty";
 
 ChartJS.register(
   ArcElement,
@@ -131,46 +129,55 @@ const Dashboard = () => {
                 <Grid item xs={12} sm={12} md={5}>
                   <Paper className={"paper"}>
                     <div className={styles._data_display}>
-                      <div className={styles.title}>Recent Transactions</div>
                       <div className={styles._data}>
-                        <div className={styles._header}>
-                          <div>Category</div>
-                          <div>Type</div>
+                        <div className={styles.title}>Recent Transactions</div>
 
-                          <div>Amount</div>
-                        </div>
-                        {dashboardData.recent.map(
-                          (item: any, index: number) => (
-                            <div
-                              style={{
-                                background:
-                                  index % 2 === 0 ? "#f7f7f7" : "#fff",
-                              }}
-                              key={index}
-                              className={styles._content}
-                            >
-                              <div>{item?.category}</div>
-                              <div
-                                style={{
-                                  background:
-                                    item?.type === "Income"
-                                      ? "#3ac47d"
-                                      : "#d92550",
-                                }}
-                              >
-                                {item?.type}
-                              </div>
+                        {dashboardData?.recent?.length === 0 ? (
+                          <EmptyData />
+                        ) : (
+                          <React.Fragment>
+                            <div className={styles._header}>
+                              <div>Category</div>
+                              <div>Type</div>
 
-                              <div>{formatAmount(item?.amount)}</div>
+                              <div>Amount</div>
                             </div>
-                          )
+                            <div>
+                              {dashboardData.recent.map(
+                                (item: any, index: number) => (
+                                  <div
+                                    style={{
+                                      background:
+                                        index % 2 === 0 ? "#f7f7f7" : "#fff",
+                                    }}
+                                    key={index}
+                                    className={styles._content}
+                                  >
+                                    <div>{item?.category}</div>
+                                    <div
+                                      style={{
+                                        background:
+                                          item?.type === "Income"
+                                            ? "#3ac47d"
+                                            : "#d92550",
+                                      }}
+                                    >
+                                      {item?.type}
+                                    </div>
+
+                                    <div>{formatAmount(item?.amount)}</div>
+                                  </div>
+                                )
+                              )}
+                            </div>
+                            <div className={styles._footer}>
+                              <Link to="/transactions">View All</Link>
+                              <button onClick={() => setOpen(true)}>
+                                Add New Transaction
+                              </button>
+                            </div>
+                          </React.Fragment>
                         )}
-                        <div className={styles._footer}>
-                          <Link to="/transactions">View All</Link>
-                          <button onClick={() => setOpen(true)}>
-                            Add New Transaction
-                          </button>
-                        </div>
                       </div>
                     </div>
                   </Paper>
@@ -196,38 +203,42 @@ const Dashboard = () => {
                   <Paper className={"paper"}>
                     <div className={styles.exp_categories}>
                       <div className={styles.title}>Expenses by category</div>
-                      <div className={styles.exps}>
-                        {dashboardData?.expByCategories.map(
-                          (item: any, index: number) => (
-                            <div
-                              style={{
-                                background: `${categoryColor(item?.name)}16`,
-                              }}
-                              key={index}
-                              className={styles.item}
-                            >
-                              <div className={styles.info}>
-                                <CategoryIcon name={item?.name} />
-                                <div>
-                                  <small>{item?.name}</small>
-                                  <p>{formatAmount(item?.amount)}</p>
-                                </div>
-                              </div>
+                      {dashboardData?.expByCategories?.length === 0 ? (
+                        <EmptyData />
+                      ) : (
+                        <div className={styles.exps}>
+                          {dashboardData?.expByCategories.map(
+                            (item: any, index: number) => (
                               <div
                                 style={{
-                                  color: categoryColor(item?.name),
-                                  fontWeight: 700,
+                                  background: `${categoryColor(item?.name)}16`,
                                 }}
+                                key={index}
+                                className={styles.item}
                               >
-                                {getPercentageFromTotal(
-                                  item?.amount,
-                                  dashboardData?.expByCategories
-                                )}
+                                <div className={styles.info}>
+                                  <CategoryIcon name={item?.name} />
+                                  <div>
+                                    <small>{item?.name}</small>
+                                    <p>{formatAmount(item?.amount)}</p>
+                                  </div>
+                                </div>
+                                <div
+                                  style={{
+                                    color: categoryColor(item?.name),
+                                    fontWeight: 700,
+                                  }}
+                                >
+                                  {getPercentageFromTotal(
+                                    item?.amount,
+                                    dashboardData?.expByCategories
+                                  )}
+                                </div>
                               </div>
-                            </div>
-                          )
-                        )}
-                      </div>
+                            )
+                          )}
+                        </div>
+                      )}
                     </div>
                   </Paper>
                 </div>
