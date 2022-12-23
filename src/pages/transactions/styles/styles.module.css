@@ -14,6 +14,7 @@
   gap: 16px;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   padding: 10px 16px;
   border-bottom: 1px solid #e9ecf3;
 }
@@ -64,6 +65,14 @@
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 16px;
   align-items: center;
+}
+@media (max-width: 480px) {
+  ._filters .input_field:first-child {
+    display: none;
+  }
+  ._filters .input_field:last-child {
+    display: none;
+  }
 }
 
 @media (min-width: 768px) {

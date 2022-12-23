@@ -1,8 +1,10 @@
 import httpService from "./httpService";
 
 class TransactionService {
-  create(data: any) {
-    return httpService.post("/transaction", data);
+  create(data: any, id = "") {
+    return id
+      ? httpService.put(`/transaction/${id}`, data)
+      : httpService.post("/transaction", data);
   }
   getTransactions(queries: any) {
     return httpService.get(
@@ -24,7 +26,7 @@ class TransactionService {
   updateOne(id: string, data: any) {
     return httpService.put(`transaction/${id}`, data);
   }
-  deleteOne(id: string) {
+  deleteOne(id: string | undefined) {
     return httpService.delete(`transaction/${id}`);
   }
 }

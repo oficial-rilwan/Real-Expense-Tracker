@@ -49,6 +49,7 @@
 ._dialog_body ._btn_gp {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   gap: 16px;
 }
 ._dialog_body ._btn_gp button {

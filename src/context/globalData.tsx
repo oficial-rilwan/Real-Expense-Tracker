@@ -37,10 +37,15 @@ export const GlobalDataProvider = ({ children }: GlobalDataContextProp) => {
     cashFlow: [],
     cashFlowMonthly: [],
   });
+  const isTrue =
+    !dashboardData.recent.length &&
+    !dashboardData.expByCategories.length &&
+    !dashboardData.cashFlow.length &&
+    !dashboardData.cashFlowMonthly.length;
 
   async function getDashboardData(req: any) {
     try {
-      if (!dashboardData.recent.length) setLoading(true);
+      if (isTrue) setLoading(true);
       const res: any = await Promise.all(req);
       setDashboardData((prev) => ({
         ...prev,
@@ -57,7 +62,7 @@ export const GlobalDataProvider = ({ children }: GlobalDataContextProp) => {
 
   async function getTransactions(queries: any) {
     try {
-      setLoading(true);
+      if (!transactions) setLoading(true);
       const { data } = await transactionService.getTransactions(queries);
       setTransactions(data);
       setLoading(false);

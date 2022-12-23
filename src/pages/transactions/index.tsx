@@ -24,6 +24,9 @@ import { GlobalData } from "../../context/globalData";
 import { expensesList, incomeList } from "../../static";
 import { SectionLoader } from "../../components/sectionLoader";
 import EmptyData from "../../components/feedback/Empty";
+import ActionMenu from "../../components/action-menu";
+import Transaction from "../../interface/transaction";
+import DeleteDialog from "../../components/deleteDialog";
 
 // interface Transaction {
 //   date: Date;
@@ -38,7 +41,10 @@ const Transactions = () => {
   const path = pathname.split("/")[1];
   const { refresh, loading, transactions, getTransactions } =
     useContext(GlobalData);
+  const [selected, setSelected] = useState<Transaction | null>(null);
   const [open, setOpen] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [queries, setQueries] = useState({
     page: 1,
     type: "",
@@ -180,7 +186,12 @@ const Transactions = () => {
                       <div>{moment(item?.date).format("MMM D, YYYY")}</div>
                       <div>{formatAmount(item?.amount)}</div>
                       <div>
-                        <button>
+                        <button
+                          onClick={(e) => {
+                            setAnchorEl(e.currentTarget);
+                            setSelected(item);
+                          }}
+                        >
                           <AppsIcon className={styles._icon} />
                         </button>
                       </div>
@@ -209,7 +220,32 @@ const Transactions = () => {
             </div>
           </Paper>
         </div>
-        <AddTransaction open={open} close={() => setOpen(false)} />
+        <AddTransaction
+          open={open}
+          selected={selected}
+          close={() => {
+            setOpen(false);
+            setTimeout(() => {
+              setSelected(null);
+            }, 300);
+          }}
+        />
+        <ActionMenu
+          anchorEl={anchorEl}
+          handleClose={() => setAnchorEl(null)}
+          handleDelete={() => setOpenDelete(true)}
+          edit={() => setOpen(true)}
+        />
+        <DeleteDialog
+          open={openDelete}
+          close={() => {
+            setOpenDelete(false);
+            setTimeout(() => {
+              setSelected(null);
+            }, 300);
+          }}
+          id={selected?._id}
+        />
       </main>
     </Layout>
   );

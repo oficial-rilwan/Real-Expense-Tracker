@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Dialog from "@mui/material/Dialog";
 import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
@@ -19,9 +19,11 @@ import MessageFeedback from "../../../components/feedback";
 import transactionService from "../../../service/transactionService";
 import { BeatLoader } from "react-spinners";
 import { GlobalData } from "../../../context/globalData";
+import Transaction from "../../../interface/transaction";
 
 interface AddTransactionProps {
   open: boolean;
+  selected?: null | Transaction;
   close: () => void;
 }
 
@@ -33,7 +35,7 @@ interface CreateTransactionDto {
   note: string;
 }
 
-const AddTransaction = ({ open, close }: AddTransactionProps) => {
+const AddTransaction = ({ open, selected, close }: AddTransactionProps) => {
   const { refreshData } = useContext(GlobalData);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -55,11 +57,32 @@ const AddTransaction = ({ open, close }: AddTransactionProps) => {
     },
   });
 
+  useEffect(() => {
+    if (!selected) {
+      reset({
+        date: new Date(),
+        category: "",
+        type: "",
+        amount: "",
+        note: "",
+      });
+    } else {
+      reset({
+        date: selected?.date,
+        category: selected?.category,
+        type: selected?.type,
+        amount: `${selected?.amount}`,
+        note: selected?.note,
+      });
+    }
+  }, [selected]);
+
   async function onSubmit(data: any) {
     try {
       setLoading(true);
-      await transactionService.create(data);
+      await transactionService.create(data, selected?._id);
       refreshData();
+      setLoading(false);
       close();
     } catch (ex: any) {
       setLoading(false);
@@ -76,7 +99,7 @@ const AddTransaction = ({ open, close }: AddTransactionProps) => {
       onClose={close}
     >
       <header className={styles._dialog_header}>
-        <div>Add Transaction</div>
+        <div>{!selected ? "Add Transaction" : "Edit Transaction"}</div>
         <div>
           <IconButton onClick={close}>
             <CloseIcon />
